@@ -7,12 +7,23 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
+
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        let disposeBag = DisposeBag()
+        let neverSequence = Observable<String>.never()
+        
+        let neverSequenceSubscription = neverSequence
+            .subscribe { _ in
+                print("This will never be printed")
+            }.addDisposableTo(disposeBag)
+    
     }
 
     override func didReceiveMemoryWarning() {
